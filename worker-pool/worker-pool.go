@@ -121,7 +121,7 @@ func (wp *WorkerPool) DeleteWorkers(count int) error {
 
     wp.wgAfterDeleting = func() {
         wp.afterDeleteWorker()
-        wg.Done()
+        defer wg.Done()
     }
 
     for i := 0; i < count; i++ {
