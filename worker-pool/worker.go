@@ -22,29 +22,29 @@ func (w *worker) run() {
     defer w.wg.Done()
     defer w.afterDelete()
 
-    fmt.Printf("Worker %d [%d]: запущен\n", w.id, os.Getpid())
+    fmt.Printf("Worker %d [%d]: запущен\n", w.id)
 
     for {
         select {
         // Если контекст завершен, удаляем воркер
         case <-w.ctx.Done():
-            fmt.Printf("Worker %d [%d]: удален\n", w.id, os.Getpid())
+            fmt.Printf("Worker %d: удален\n", w.id)
             return
         case status, ok := <-w.deletingCh:
             // Если канал закрылся или пришел сигнал об удалении воркера, удаляем воркер
             if ok == false || status {
-                fmt.Printf("Worker %d [%d]: удален\n", w.id, os.Getpid())
+                fmt.Printf("Worker %d: удален\n", w.id)
                 return
             }
         case msg, ok := <-w.messagesCh:
             // Если канал закрылся, удаляем воркер
             if ok == false {
-                fmt.Printf("Worker %d [%d]: удален\n", w.id, os.Getpid())
+                fmt.Printf("Worker %d: удален\n", w.id)
                 return
             }
 
             w.setBusy()
-            fmt.Printf("Worker %d [%d]: %s\n", w.id, os.Getpid(), msg)
+            fmt.Printf("Worker %d: %s\n", w.id, msg)
             w.setUnbusy()
         }
     }
