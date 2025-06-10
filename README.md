@@ -50,28 +50,28 @@ func (wp *WorkerPool) GetWorkerCount() int
 package main
 
 import (
-	workerPool "github.com/Alexandr-Fox/worker-pool/worker-pool"
+    workerPool "github.com/Alexandr-Fox/worker-pool/worker-pool"
 )
 
 func main() {
-	wp := workerPool.NewWorkerPull()
-	defer wp.Close()
+    wp := workerPool.NewWorkerPull()
+    defer wp.Close()
 
-	// Добавляем 3 воркера
-	wp.AddWorkers(3)
+    // Добавляем 3 воркера
+    wp.AddWorkers(3)
 
-	// Отправляем сообщения
-	wp.AddMessage("Hello")
-	wp.AddMessage("World")
+    // Отправляем сообщения
+    wp.AddMessage("Hello")
+    wp.AddMessage("World")
 
-	// Удаляем 1 воркера
-	wp.DeleteWorkers(1)
+    // Удаляем 1 воркера
+    wp.DeleteWorkers(1)
 
-	// Отправляем еще сообщения
-	wp.AddMessage("Goodbye")
+    // Отправляем еще сообщения
+    wp.AddMessage("Goodbye")
 
     // Закрываем WorkerPool и завершаем все воркеры
-	wp.Close()
+    wp.Close()
 }
 ```
 
