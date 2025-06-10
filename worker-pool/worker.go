@@ -3,7 +3,6 @@ package workerPool
 import (
     "context"
     "fmt"
-    "os"
     "sync"
 )
 
@@ -22,7 +21,7 @@ func (w *worker) run() {
     defer w.wg.Done()
     defer w.afterDelete()
 
-    fmt.Printf("Worker %d [%d]: запущен\n", w.id)
+    fmt.Printf("Worker %d: запущен\n", w.id)
 
     for {
         select {
